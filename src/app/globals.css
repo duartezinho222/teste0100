@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #050A14;
+  color: #E2E8F8;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1A2D47; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #22385A; }
+
+/* Selection */
+::selection { background: rgba(69,80,240,0.3); color: #fff; }
+
+@layer components {
+  /* --- Cards --- */
+  .card {
+    @apply bg-card border border-line rounded-xl;
+  }
+  .card-hover {
+    @apply card transition-colors duration-150 hover:border-line-2 hover:bg-card-hover;
+  }
+
+  /* --- Inputs --- */
+  .input {
+    @apply w-full bg-surface border border-line rounded-lg px-3 py-2.5
+           text-sm text-slate-200 placeholder-slate-600
+           outline-none transition-all duration-150
+           focus:border-accent-500 focus:ring-1 focus:ring-accent-500/20;
+  }
+  .input-prefix {
+    @apply flex items-center gap-2 bg-surface border border-line rounded-lg
+           overflow-hidden focus-within:border-accent-500 focus-within:ring-1 focus-within:ring-accent-500/20;
+  }
+  .input-prefix span {
+    @apply pl-3 text-sm text-slate-500 select-none shrink-0;
+  }
+  .input-prefix input {
+    @apply flex-1 bg-transparent border-none outline-none py-2.5 pr-3 text-sm text-slate-200 placeholder-slate-600;
+  }
+  select.input {
+    @apply appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+  }
+  select.input option { background: #0C1525; }
+
+  /* --- Buttons --- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg
+           text-sm font-medium border border-line-2 bg-transparent text-slate-300
+           transition-all duration-150 cursor-pointer select-none
+           hover:bg-card hover:text-white hover:border-line-3
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-sm { @apply px-3 py-1.5 text-xs rounded; }
+  .btn-lg { @apply px-6 py-3 text-base rounded-xl; }
+  .btn-primary {
+    @apply bg-accent-500 border-accent-500 text-white
+           hover:bg-accent-600 hover:border-accent-600
+           shadow-glow-accent;
+  }
+  .btn-ghost {
+    @apply border-transparent text-slate-400
+           hover:bg-white/[0.04] hover:border-transparent hover:text-slate-200;
+  }
+  .btn-danger {
+    @apply border-loss/20 text-loss/80 bg-loss-dim/50
+           hover:bg-loss-dim hover:text-loss hover:border-loss/30;
+  }
+  .btn-gain {
+    @apply border-gain/20 text-gain/80 bg-gain-dim/50
+           hover:bg-gain-dim hover:text-gain hover:border-gain/30;
+  }
+
+  /* --- Badges --- */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-gain  { @apply bg-gain-dim text-gain border border-gain/20; }
+  .badge-loss  { @apply bg-loss-dim text-loss border border-loss/20; }
+  .badge-warn  { @apply bg-warn-dim text-warn border border-warn/20; }
+  .badge-info  { @apply bg-info-dim text-info border border-info/20; }
+  .badge-accent{ @apply bg-accent-900 text-accent-200 border border-accent-700; }
+  .badge-muted { @apply bg-panel text-slate-500 border border-line; }
+
+  /* --- Progress bar --- */
+  .progress-track { @apply w-full h-1.5 bg-line rounded-full overflow-hidden; }
+  .progress-fill  { @apply h-full rounded-full transition-all duration-500; }
+
+  /* --- Labels / form --- */
+  .label { @apply block text-xs font-medium text-slate-400 mb-1.5; }
+
+  /* --- Section header --- */
+  .section-title { @apply text-xs font-semibold uppercase tracking-widest text-slate-500; }
+
+  /* --- Divider --- */
+  .divider { @apply border-t border-line; }
+
+  /* --- Alert boxes --- */
+  .alert { @apply flex items-start gap-3 p-3 rounded-lg text-sm; }
+  .alert-warn   { @apply bg-warn-dim border border-warn/20 text-warn; }
+  .alert-danger { @apply bg-loss-dim border border-loss/20 text-loss; }
+  .alert-info   { @apply bg-info-dim border border-info/20 text-info; }
+  .alert-gain   { @apply bg-gain-dim border border-gain/20 text-gain; }
+
+  /* --- Number display --- */
+  .amount-gain { @apply font-semibold tabular-nums text-gain; }
+  .amount-loss { @apply font-semibold tabular-nums text-loss; }
+  .amount-neutral { @apply font-semibold tabular-nums text-slate-200; }
+
+  /* --- Nav item --- */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-500
+           transition-all duration-150 cursor-pointer w-full text-left border border-transparent
+           hover:text-slate-300 hover:bg-white/[0.04];
+  }
+  .nav-item.active {
+    @apply text-accent-300 bg-accent-900/60 border-accent-800/50;
+  }
+
+  /* --- Metric card --- */
+  .metric-card {
+    @apply card p-4 flex flex-col gap-1;
+  }
+  .metric-label { @apply text-xs text-slate-500 font-medium uppercase tracking-wide; }
+  .metric-value { @apply text-2xl font-semibold tracking-tight tabular-nums; }
+  .metric-sub   { @apply text-xs text-slate-600 mt-0.5; }
+
+  /* --- Table --- */
+  .data-table { @apply w-full text-sm; }
+  .data-table thead tr { @apply border-b border-line; }
+  .data-table thead th { @apply text-left text-xs text-slate-500 font-medium uppercase tracking-wide px-4 py-3; }
+  .data-table tbody tr { @apply border-b border-line/60 transition-colors hover:bg-white/[0.015]; }
+  .data-table tbody tr:last-child { @apply border-b-0; }
+  .data-table tbody td { @apply px-4 py-3; }
+
+  /* --- Modal --- */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/70 backdrop-blur-sm z-50
+           flex items-end sm:items-center justify-center p-4;
+  }
+  .modal-box {
+    @apply bg-panel border border-line-2 rounded-2xl w-full max-w-md
+           shadow-[0_25px_80px_rgba(0,0,0,0.7)] animate-slide-up;
+  }
+  .modal-header {
+    @apply flex items-center justify-between px-6 py-4 border-b border-line;
+  }
+  .modal-body { @apply px-6 py-5 space-y-4; }
+  .modal-footer { @apply flex items-center justify-end gap-2 px-6 py-4 border-t border-line; }
+
+  /* --- Toast --- */
+  .toast {
+    @apply fixed bottom-6 right-6 z-50 flex items-center gap-3
+           px-4 py-3 rounded-xl border text-sm font-medium
+           shadow-[0_8px_32px_rgba(0,0,0,0.5)]
+           animate-slide-up pointer-events-none;
+  }
+  .toast-gain   { @apply bg-gain-dim border-gain/30 text-gain; }
+  .toast-loss   { @apply bg-loss-dim border-loss/30 text-loss; }
+  .toast-accent { @apply bg-accent-900 border-accent-700 text-accent-200; }
+
+  /* --- Sidebar accent line --- */
+  .sidebar-accent {
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full bg-accent-500;
+  }
+
+  /* --- Skeleton --- */
+  .skeleton { @apply bg-line animate-pulse rounded; }
+
+  /* --- Chip / Filter button --- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+           border border-line text-slate-500 cursor-pointer transition-all duration-150
+           hover:border-line-2 hover:text-slate-300;
+  }
+  .chip.active { @apply border-accent-700 text-accent-300 bg-accent-900/50; }
+}
